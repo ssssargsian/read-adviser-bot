@@ -18,8 +18,8 @@ type Storage struct {
 
 const defaultPerm = 0774
 
-func New(basePath string) *Storage {
-	return &Storage{basePath: basePath}
+func New(basePath string) Storage {
+	return Storage{basePath: basePath}
 }
 
 func (s Storage) Save(page *storage.Page) (err error) {
