@@ -3,6 +3,7 @@ package telegram
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"path"
@@ -93,5 +94,6 @@ func (c *Client) doRequest(method string, query url.Values) (data []byte, err er
 		return nil, err
 	}
 
+	log.Printf("response: %s", string(body))
 	return body, nil
 }

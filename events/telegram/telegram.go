@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"errors"
+	"log"
 	"read-adviser-bot/clients/telegram"
 	"read-adviser-bot/events"
 	"read-adviser-bot/lib/e"
@@ -87,10 +88,13 @@ func meta(event events.Event) (Meta, error) {
 func event(upd telegram.Update) events.Event {
 	updType := fetchType(upd)
 
+	log.Printf("текст из апдейта %s", upd.Message.Text)
 	res := events.Event{
 		Type: updType,
 		Text: fetchText(upd),
 	}
+
+	log.Printf("текст из евента апдейта %s", res.Text)
 
 	if updType == events.Message {
 		res.Meta = Meta{
@@ -103,7 +107,7 @@ func event(upd telegram.Update) events.Event {
 }
 
 func fetchText(upd telegram.Update) string {
-	if upd.Message != nil {
+	if upd.Message == nil {
 		return ""
 	}
 	return upd.Message.Text
